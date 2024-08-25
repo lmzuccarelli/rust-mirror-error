@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "rust-mirror-error"
+name = "mirror-error"
 version = "0.1.0"
