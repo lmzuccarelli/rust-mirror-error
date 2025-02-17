@@ -8,9 +8,9 @@ pub struct MirrorError {
 
 #[allow(dead_code)]
 impl MirrorError {
-    pub fn new(msg: &str) -> MirrorError {
+    pub fn new<S: Into<String>>(msg: S) -> MirrorError {
         MirrorError {
-            details: msg.to_string(),
+            details: msg.into(),
         }
     }
 }
@@ -34,9 +34,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn err_pass() {
-        let err = MirrorError::new(&format!("testing error {}", "123456".to_string()));
+    fn err_pass_str() {
+        let err = MirrorError::new("testing error 123456");
         assert_eq!(err.to_string(), "testing error 123456");
         assert_eq!(err.description(), "testing error 123456");
+    }
+
+    #[test]
+    fn err_pass_string() {
+        let err = MirrorError::new(String::from("testing owned string"));
+        assert_eq!(err.to_string(), "testing owned string");
+        assert_eq!(err.description(), "testing owned string");
     }
 }
